@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "gulp open",
-    "pdf": "gulp pdf"
+    "pdf": "gulp pdf",
+    "test": "standard | snazzy"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.0",
@@ -33,7 +34,6 @@
     "gulp-rename": "^1.2.0",
     "gulp-stylus": "^2.7.0",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.8",
     "insert-css": "^2.0.0",
     "normalizecss": "^3.0.0",
     "opn": "^5.1.0",
@@ -43,5 +43,10 @@
   },
   "engines": {
     "node": ">= 8"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
   }
 }

@@ -1,16 +1,15 @@
-// Require Node modules in the browser thanks to Browserify: http://browserify.org
-var bespoke = require('bespoke'),
-  classes = require('bespoke-classes'),
-  keys = require('bespoke-keys'),
-  touch = require('bespoke-touch'),
-  bullets = require('bespoke-bullets'),
-  backdrop = require('bespoke-backdrop'),
-  scale = require('bespoke-scale'),
-  hash = require('bespoke-hash'),
-  progress = require('bespoke-progress'),
-  multimedia = require('bespoke-multimedia'),
-  run = require('bespoke-run'),
-  extern = require('bespoke-extern');
+var bespoke = require('bespoke')
+var classes = require('bespoke-classes')
+var keys = require('bespoke-keys')
+var touch = require('bespoke-touch')
+var bullets = require('bespoke-bullets')
+var backdrop = require('bespoke-backdrop')
+var scale = require('bespoke-scale')
+var hash = require('bespoke-hash')
+var progress = require('bespoke-progress')
+var multimedia = require('bespoke-multimedia')
+var run = require('bespoke-run')
+var extern = require('bespoke-extern')
 
 // Bespoke.js
 bespoke.from('article', [
@@ -25,8 +24,8 @@ bespoke.from('article', [
   progress(),
   multimedia(),
   extern()
-]);
+])
 
 // Prism syntax highlighting
-require('prismjs');
-require('@fortawesome/fontawesome');
+require('prismjs')
+require('@fortawesome/fontawesome')
