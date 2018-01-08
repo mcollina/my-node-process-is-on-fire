@@ -1,0 +1,406 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    title AAABBB
+
+    link(rel='stylesheet', type='text/css', href='build/build.css')
+
+  body
+
+    article
+
+      section
+        h1 Take your HTTP server to something else
+        img(src="./images/ludicrous.gif")
+        br
+        h3 by&nbsp;
+          a(href="http://twitter.com/matteocollina") @matteocollina
+
+        p.copyright.
+          Ludicrous speed is from Spaceballs
+
+      section(data-bespoke-backdrop='spaceballs').trans
+
+      section
+        img(src='images/0x.png', style='height:80%;')
+
+      section
+        img(src='images/autocannon.png', style='width:100%;')
+
+      section
+        video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
+
+      section
+        h2 Node Core
+        pre
+          code.language-javascript.
+            'use strict'
+
+            var server = require('http').createServer(handle)
+
+            server.listen(3000)
+
+            function handle (req, res) {
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({ hello: 'world' }))
+            }
+
+      section
+        h2 Express
+        pre
+          code.language-javascript.
+            'use strict'
+
+            var express = require('express')
+            var app = express()
+            app.disable('etag').disable('x-powered-by')
+
+            app.get('/', function (req, res) {
+              res.json({ hello: 'world' })
+            })
+
+            app.listen(3000)
+
+      section
+        img(src="images/core-vs-express.png" style="height: 100%")
+
+      section
+        a(href="flamegraph-core.html" target="blank")
+          img(src="images/flamegraph-bare.png" style="width: 90%")
+
+      section
+        a(href="flamegraph-express.html" target="blank")
+          img(src="images/flamegraph-express.png" style="width: 90%")
+
+      section(data-bespoke-backdrop='path').trans
+        h2(style="color: white") The path to fast
+
+      section
+        ol
+          li
+            h3 Start from scratch
+          li
+            h3 Add a feature
+          li
+            h3 Measure
+          li
+            h3 Optimize until it has no overhead
+          li
+            h3 GOTO 2
+
+      section
+        // TODO this might need an image as a background
+        h2 Can we speed up Core?
+
+      section
+        h2 The problem with JSON.stringify
+        ul.bullet
+          li recursive function, hard to optimize
+          li generic code, cannot be type specific
+
+      section
+        h2 Serialization
+        img(src="images/fast-json-stringify.png" style="height: 90%")
+
+      section
+        h2 fast-json-stringify
+        ul.bullet
+          li schema-based JSON rendering
+          li generates code based on the schema
+          li new Function(), but it is safe
+
+      section
+        pre
+          code.language-javascript.
+            require('http').createServer(handle).listen(3000)
+
+            var stringify = require('fast-json-stringify')({
+              type: 'object',
+              properties: { hello: { type: 'string' } }
+            })
+
+            function handle (req, res) {
+              res.setHeader('Content-Type', 'application/json')
+              res.end(stringify({ hello: 'world' }))
+            }
+
+      section
+        img(src="images/bare-fjs.png" style="height: 100%")
+
+      section
+        h2 Adding an HTTP router
+        ul.bullet
+          li
+            a(href="https://github.com/delvedor/find-my-way") https://github.com/delvedor/find-my-way
+          li avoid closure allocation
+          li built on a radix-tree
+          li safe
+
+      section
+        h2 routing
+        img(src="images/find-my-way-bench.png" style="height: 90%")
+        a(href="https://github.com/delvedor/router-benchmark") https://github.com/delvedor/router-benchmark
+
+      section
+        pre
+          code.language-javascript.
+            const router = require('find-my-way')()
+            require('http').createServer(router.lookup.bind(router)).listen(3000)
+
+            var stringify = require('fast-json-stringify')({
+              type: 'object',
+              properties: { hello: { type: 'string' } }
+            })
+
+            router.on('GET', '/', function root (req, res, params) {
+              res.setHeader('Content-Type', 'application/json')
+              res.end(stringify({ hello: 'world' }))
+            }
+
+      section
+        img(src="images/bare-fjs-fmw.png" style="height: 100%")
+
+      section
+        img(src="images/fastify.png" style="width: 90%")
+        br
+        h3
+          a(href="https://github.com/fastify/fastify") https://github.com/fastify/fastify
+
+      section
+        pre
+          code.language-javascript.
+            'use strict'
+            const fastify = require('fastify')()
+
+            fastify.get('/', function (req, reply) {
+              reply.send({ hello: 'world' })
+            })
+
+            fastify.listen(3000)
+
+      section
+        pre
+          code.language-javascript.
+            fastify.get('/', {
+              schema: {
+                response: {
+                  200: {
+                    type: 'object',
+                    properties: { hello: { type: 'string' } }
+                  }
+                }
+              }
+            }, (req, reply) => {
+              reply.send({ hello: 'world' })
+            })
+
+      section
+        img(src="images/core-vs-express-vs-fastify.png" style="height: 100%")
+
+      section
+        a(href="flamegraph-fastify-simple.html" target="blank")
+          img(src="images/flamegraph-fastify-simple.png" style="width: 90%")
+
+      section
+        a(href="flamegraph-core.html" target="blank")
+          img(src="images/flamegraph-bare.png" style="width: 90%")
+
+      section
+        h2 Features Comparison
+        table
+          tr
+            th.left Feature
+            th Express
+            th Hapi
+            th
+              em Fastify
+          tr
+            td.left router
+            td.green &#10004;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left middleware
+            td.green &#10004;
+            td.red &#10060;
+            td.green &#10004;
+          tr
+            td.left plugins
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left validation
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left hooks
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left decorators
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left logging
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left async/await
+            td.red &#10060;
+            td.green &#10004;
+            td.green &#10004;
+          tr
+            td.left req/sec
+            td.red 20860
+            td.red 5768
+            td.green 34613
+
+      section
+        img(src="images/build-run.png" style="width: 100%")
+
+      section
+        a(href="https://www.youtube.com/watch?v=_0W_822Dijg")
+          img(src="images/reaching-ludicrous-speed.png" style="width: 90%")
+
+      section
+        h2 The problem with closures
+
+        pre
+          code.language-javascript.
+            function process (bigdata, cb) {
+              remoteCall(bigdata, function (err, something) {
+                storeSomething(something, function (err, res) {
+                  // this function is short-lived and hard to optimize
+                  // bigdata is still in scope!
+                  cb(null, res * 2)
+                })
+              })
+            }
+
+      section
+        h2 Avoid nested closures 1/2
+
+        pre
+          code.language-javascript.
+            function process (bigdata, cb) {
+              remoteCall(bigdata, function (err, something) {
+                // bigdata exits scope here
+                callStoreSomething(something, cb)
+              })
+            }
+
+      section
+        h2 Avoid nested closures 2/2
+
+        pre
+          code.language-javascript.
+            function callStoreSomething(something, cb) {
+              /* this function can be optimized! */
+              storeSomething(something, function (err, res) {
+                cb(null, res * 2)
+              })
+            }
+
+      section
+        h2
+          em Fastify
+          | :&nbsp;no closures at all!
+        a.bullet(href="https://github.com/mcollina/reusify") https://github.com/mcollina/reusify
+
+      section
+        h2 middleware
+        h3
+          em fastify
+          | &nbsp;consumes (req, res, next) middlewares!
+
+        ul.bullet
+          li
+            a(href="https://github.com/fastify/middie") https://github.com/fastify/middie
+
+      section
+        h2 helmet comparison
+        img(src="images/middleware-express-vs-fastify.png" style="height: 100%")
+
+      section
+        a(href="flamegraph-express-helmet.html" target="blank")
+          img(src="images/flamegraph-express-helmet.png" style="width: 90%")
+
+      section
+        a(href="flamegraph-fastify-helmet.html" target="blank")
+          img(src="images/flamegraph-fastify-helmet.png" style="width: 90%")
+
+      section
+        // TODO add arrow to ajv
+        h2 validation speed
+        img(src="./images/validators.png" style="height: 50%")
+        br
+        a(href="https://github.com/ebdrup/json-schema-benchmark") https://github.com/ebdrup/json-schema-benchmark
+
+      section
+        // TODO add arrow to ajv
+        h2 validation correctness
+        img(src="./images/validators-errors.png" style="height: 60%")
+        br
+        a(href="https://github.com/ebdrup/json-schema-benchmark") https://github.com/ebdrup/json-schema-benchmark
+
+      section
+        img(src="images/fastify.png" style="width: 90%")
+        br
+        h3
+          a(href="https://www.fastify.io") https://www.fastify.io
+
+      section
+        h3 Most code does not need to go
+        img(src="./images/ludicrous.gif")
+
+      section
+        a(href="https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/")
+          img(src="images/turbofan-post.png", style="width: 90%")
+        p(style="font-size: 0.6em;")
+          a(href="https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/") https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/
+
+      section
+        h2 Acknowledgements
+        br
+        br
+        div.bullet
+          img.bullet(src="images/nearform.svg" style="width: 70%")
+          br
+          br
+          img.bullet(src="images/letzdoit.png" style="width: 65%")
+
+      section
+        h2 This presentation
+        ul.bullet
+          li
+            a(href="https://mcollina.github.io/take-your-http-server-to-ludicrous-speed").
+              https://mcollina.github.io/take-your-http-server-to-ludicrous-speed
+          li
+            a(href="https://github.com/mcollina/take-your-http-server-to-ludicrous-speed").
+              https://github.com/mcollina/take-your-http-server-to-ludicrous-speed
+
+      section.full-imgs
+        img(src='images/me.png')
+        h3
+          a(href='http://github.com/mcollina') http://github.com/mcollina
+
+      section
+        h1 Thanks!
+        a(href="http://nearform.com" style="width: 20%")
+          img(src="./images/nearform.svg")
+        br
+        p If you need help with Node.js, contact us
+        br
+        h3 <a href="mailto:matteo.collina@nearform.com">matteo.collina@nearform.com</a>
+        h3 <a href="http://twitter.com/matteocollina">@matteocollina</a> on Twitter
+        h3 <a href="http://www.nearform.com">www.nearform.com</a>
+
+    script(src='build/build.js')
+    script(src='http://localhost:35729/livereload.js')

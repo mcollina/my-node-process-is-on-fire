@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+slides.pdf
+
+dist/
+
+.DS_Store
