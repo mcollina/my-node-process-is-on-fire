@@ -16,7 +16,8 @@ var opn = require('opn')
 var ghpages = require('gh-pages')
 var path = require('path')
 var http = require('http')
-var st = require('st')
+var serveStatic = require('serve-static')
+var final = require('finalhandler')
 var spawn = require('child_process').spawn
 var isDist = process.argv.indexOf('serve') === -1
 
@@ -76,10 +77,10 @@ gulp.task('build', gulp.series('clean', gulp.parallel(['js', 'html', 'css', 'ima
 
 gulp.task('watch', function (done) {
   livereload.listen({ basePath: 'dist' })
-  gulp.watch('src/**/*.pug', gulp.parallel('html', 'copy-html'))
+  gulp.watch('src/**/*.pug', gulp.parallel('html'))
   gulp.watch('src/styles/**/*.styl', gulp.parallel('css'))
   gulp.watch('src/images/**/*', gulp.parallel('images'))
-  gulp.watch('src/*.html', gulp.parallel('html', 'copy-html'))
+  gulp.watch('src/*.html', gulp.parallel('copy-html'))
   gulp.watch('src/scripts/**/*.js', gulp.parallel('js'))
   gulp.watch('bespoke-theme-*/dist/*.js', gulp.parallel('js')) // Allow themes to be developed in parallel
   done()
@@ -90,9 +91,10 @@ gulp.task('open', gulp.series('watch', function realOpen () {
 }))
 
 gulp.task('server', (done) => {
-  server = http.createServer(
-    st({ path: path.join(__dirname, 'dist'), index: 'index.html', cache: false })
-  )
+  var serve = serveStatic('dist/', {'index': ['index.html', 'index.htm']})
+  server = http.createServer(function (req, res) {
+    serve(req, res, final(res, res))
+  })
 
   server.listen(8080, done)
 })

@@ -22,6 +22,7 @@
     "bespoke-touch": "^1.0.0",
     "decktape": "^2.7.0",
     "del": "^3.0.0",
+    "finalhandler": "^1.1.0",
     "gh-pages": "^1.1.0",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^4.1.0",
@@ -38,7 +39,7 @@
     "normalizecss": "^3.0.0",
     "opn": "^5.1.0",
     "prismjs": "^1.9.0",
-    "st": "^1.2.2",
+    "serve-static": "^1.13.1",
     "through": "^2.3.4"
   },
   "engines": {

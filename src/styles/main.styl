@@ -157,22 +157,20 @@ bullet_transition_translate_x = 16px
 
 // bespoke-backdrop styles
 
-.spaceballs
-  background: url('../images/spaceballs.jpg') center
-  background-size: contain
-  background-repeat: no-repeat
-  background-color: black
-
-.nodeconfeu
-  background-image: url('../images/nodeconfeu-2013-top.jpg')
-  background-size: cover
-
-.menodeconfeu
-  background-image: url('../images/me-nodeconf-eu-2013.jpg')
-  background-size: cover
-
 .speed
   background-image: url('../images/speed.jpg')
+  background-size: cover
+
+.fire
+  background-image: url('../images/fire.jpg')
+  background-size: cover
+
+.lab
+  background-image: url('../images/lab.jpg')
+  background-size: cover
+
+.water
+  background-image: url('../images/water.jpg')
   background-size: cover
 
 .node-desktop
@@ -257,14 +255,6 @@ a
     width: 100%
     height: 100%
 
-.sensortag
-  background-image: url('../images/sensortag.jpg')
-  background-size: cover
-
-.sensortag-slide
-  background: transparent !important
-  color: white
-
 button
   padding: 10px
 
@@ -309,3 +299,11 @@ table
     padding: 0.5em
   td
     padding: 0.5em
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
