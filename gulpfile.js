@@ -93,7 +93,7 @@ gulp.task('open', gulp.series('watch', function realOpen () {
 gulp.task('server', (done) => {
   var serve = serveStatic('dist/', {'index': ['index.html', 'index.htm']})
   server = http.createServer(function (req, res) {
-    serve(req, res, final(res, res))
+    serve(req, res, final(req, res))
   })
 
   server.listen(8080, done)

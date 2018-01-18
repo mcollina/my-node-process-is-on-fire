@@ -38,13 +38,110 @@ html
         h2(style="color: white; margin-left: 0px; margin-right: auto;") what happened?
 
       section
+        h2 How to fix?
+
+        ol.bullet
+          li gather diagnostics data and evidence
+          li reproduce the problem in a non-prod live environment
+          li reproduce the problem in a synthethic way
+          li gather diagnostics data and evidence
+          li try a fix for the problem
+          li if not fixed, go back to 4, and try again
+
+      section
+        h2 Fixing performance issues
+
+        ol.bullet
+          li establish a <em>measurable</em> goal
+          li measure - establish a baseline
+          li find the bottleneck
+          li optimize/fix
+          li measure - establish the new baseline
+          li &nbsp;&nbsp;&nbsp;go back to 2 if it does not meet the goal
+
+      section(data-bespoke-backdrop='goal').trans
+        h2(style="text-align: right; margin-left: 20%")
+          | Establishing a
+          br
+          | measurable Goal
+
+      section
+        h3(style="width: 70%")
+          em My&nbsp;
+          | application
+          | must have a response time < 200ms at P99
+          | with 100 concurrent requests
+          | per server
+
+      section
+        h3(style="width: 70%")
+          em My&nbsp;
+          | application
+          | must handle 10000 request/s with
+          | with 100 concurrent requests
+          | per server
+
+      section
+        h2 Latency and throughput are connected
+
+        ul.bullet
+          li Node.js is single threaded
+          li Multiple I/O actions in parallel
+          li Higher latency increase memory usage
+          li High memory usage increase GC activity
+
+      section(data-bespoke-backdrop='start', style='color: white').transgray
+        h2(style="text-align: left; margin-right: 30%")
+          | Establishing a
+          br
+          | Baseline
+
+      section
+        img(src='images/autocannon.png', style='width:100%;margin-bottom:5%;margin-top:-5%')
+        h3 HTTP load tester
+        h3 Trival cross platform installation
+        h3
+          a(href="https://github.com/mcollina/autocannon") https://github.com/mcollina/autocannon
+
+      section
+        img(src='images/autocannon-demo.gif', style='height: 80%')
+
+      section
+        h2 How do we find the bottleneck?
+
+      section(data-bespoke-backdrop='lens', style='color: white').trans
+        h2 Diagnostics
+
+      section
+        img(src='images/clinic.svg', style='width:80%;')
+
+      section
+        h2 Node Clinic
+
+        pre
+          code.language-none.
+            npm install clinic -g
+
+      section
+        h2 Node Clinic
+        pre
+          code.language-none.
+            $ clinic doctor -- node server.js
+            $ clinic 0x -- node server.js
+
+            # More tools to come!
+
+      section
+        img(src='images/doctor.svg', style='width:80%;')
+
+      section
         img(src='images/0x.png', style='height:80%;')
 
       section
-        img(src='images/autocannon.png', style='width:100%;')
+        video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
 
       section
-        video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
+        h3 The Node.js process
 
       section
         h3 Most code does not need to go
@@ -74,9 +171,8 @@ html
               https://github.com/mcollina/my-node-process-is-on-fire
 
       section
-        img(src='images/me.png' style="width: 100%")
-        h3
-          a(href='http://github.com/mcollina') http://github.com/mcollina
+        a(href='http://github.com/mcollina')
+          img(src='images/me.png' style="width: 100%")
 
       section
         h1 Thanks!
