@@ -110,7 +110,7 @@ gulp.task('deploy', gulp.series('build'), function (done) {
 })
 
 gulp.task('pdf', gulp.series('build', 'server', function print () {
-  return spawn('decktape', ['bespoke', 'http://localhost:8080', 'slides.pdf'], { stdio: 'inherit' })
+  return spawn(path.join(__dirname, 'node_modules', '.bin', 'decktape'), ['bespoke', 'http://localhost:8080', 'slides.pdf'], { stdio: 'inherit' })
 }, function shutdown (done) {
   if (server) {
     server.close()

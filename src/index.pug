@@ -40,24 +40,24 @@ html
       section
         h2 How to fix?
 
-        ol.bullet
+        ul.bullet
           li gather diagnostics data and evidence
           li reproduce the problem in a non-prod live environment
           li reproduce the problem in a synthethic way
           li gather diagnostics data and evidence
           li try a fix for the problem
-          li if not fixed, go back to 4, and try again
+          li if not fixed, go back and try again
 
       section
         h2 Fixing performance issues
 
-        ol.bullet
+        ul.bullet
           li establish a <em>measurable</em> goal
-          li measure - establish a baseline
+          li measure
           li find the bottleneck
           li optimize/fix
-          li measure - establish the new baseline
-          li &nbsp;&nbsp;&nbsp;go back to 2 if it does not meet the goal
+          li measure
+          li &nbsp;&nbsp;&nbsp;go back if it does not meet the goal
 
       section(data-bespoke-backdrop='goal').trans
         h2(style="text-align: right; margin-left: 20%")
@@ -92,9 +92,7 @@ html
 
       section(data-bespoke-backdrop='start', style='color: white').transgray
         h2(style="text-align: left; margin-right: 30%")
-          | Establishing a
-          br
-          | Baseline
+          | Measure
 
       section
         img(src='images/autocannon.png', style='width:100%;margin-bottom:5%;margin-top:-5%')
@@ -127,12 +125,18 @@ html
         pre
           code.language-none.
             $ clinic doctor -- node server.js
-            $ clinic 0x -- node server.js
+            $ clinic flame -- node server.js
 
             # More tools to come!
 
       section
         img(src='images/doctor.svg', style='width:80%;')
+
+      section
+        h2 DOCTOR DEMO
+
+      section
+        img(src='images/event-loop-delay.png', style='height:50%;')
 
       section
         img(src='images/0x.png', style='height:80%;')
@@ -148,17 +152,27 @@ html
         img(src="./images/ludicrous.gif")
 
       section
-        a(href="https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/")
-          img(src="images/turbofan-post.png", style="width: 90%")
-        p(style="font-size: 0.6em;")
-          a(href="https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/") https://www.nearform.com/blog/node-js-is-getting-a-new-v8-with-turbofan/
-
-      section
         h2 Acknowledgements
         br
         br
         div.bullet
           img.bullet(src="images/nearform.svg" style="width: 70%")
+
+      section
+        h2 The Team
+
+        img(src="images/clinic-team.jpg" style="width: 100%")
+
+
+      // section
+
+      //   ul.bullet
+      //     li Andreas Madsen
+      //     li Joy Burke
+      //     li Conor O'Neil
+      //     li Mathias Buus
+      //     li Alan Slater
+      //     li Kamil Mech
 
       section
         h2 This presentation
