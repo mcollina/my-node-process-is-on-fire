@@ -87,8 +87,10 @@ html
         ul.bullet
           li Node.js is single threaded
           li Multiple I/O actions in parallel
-          li Higher latency increase memory usage
+          li In case of high I/O latency, we increase concurrency
+          li Higher latency and concurrency increase memory usage
           li High memory usage increase GC activity
+          li GC activity costs precious CPU cycles to run
 
       section(data-bespoke-backdrop='start', style='color: white').transgray
         h2(style="text-align: left; margin-right: 30%")
@@ -111,7 +113,8 @@ html
         h2 Diagnostics
 
       section
-        img(src='images/clinic.svg', style='width:80%;')
+        h2 Node Clinic
+        img(src='images/doctor.svg', style='width:80%;')
 
       section
         h2 Node Clinic
@@ -130,22 +133,16 @@ html
             # More tools to come!
 
       section
-        img(src='images/doctor.svg', style='width:80%;')
-
-      section
         h2 DOCTOR DEMO
 
       section
-        img(src='images/event-loop-delay.png', style='height:50%;')
+        img(src='images/event-loop-delay.png', style='width: 100%;')
 
       section
         img(src='images/0x.png', style='height:80%;')
 
       section
         video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
-
-      section
-        h3 The Node.js process
 
       section
         h3 Most code does not need to go
