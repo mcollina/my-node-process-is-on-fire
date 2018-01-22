@@ -62,3 +62,6 @@ slides.pdf
 dist/
 
 .DS_Store
+
+*clinic*
+*flamegraph*

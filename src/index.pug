@@ -73,16 +73,18 @@ html
           | with 100 concurrent requests
           | per server
 
-      section
-        h3(style="width: 70%")
-          em My&nbsp;
-          | application
-          | must handle 10000 request/s with
-          | with 100 concurrent requests
-          | per server
+      // section
+      //   h3(style="width: 70%")
+      //     em My&nbsp;
+      //     | application
+      //     | must handle 10000 request/s with
+      //     | with 100 concurrent requests
+      //     | per server
 
       section
-        h2 Latency and throughput are connected
+        h2 Latency and throughput
+          br
+          | are connected
 
         ul.bullet
           li Node.js is single threaded
@@ -122,6 +124,11 @@ html
         pre
           code.language-none.
             npm install clinic -g
+
+            clinic doctor -- node demo.js
+            clinic flame -- node demo.js
+
+            # more tools
 
       section
         h2 clinic doctor
