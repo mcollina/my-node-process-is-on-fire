@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "pre-commit": "^1.2.2",
+    "restify": "^6.3.4",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3"
   }

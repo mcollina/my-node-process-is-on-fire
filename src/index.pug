@@ -124,25 +124,71 @@ html
             npm install clinic -g
 
       section
-        h2 Node Clinic
+        h2 clinic doctor
+
         pre
           code.language-none.
             $ clinic doctor -- node server.js
+
+      section
+        a(href="doctor-demo.html", target="blank")
+          img(src='images/event-loop-delay.png', style='width: 100%;')
+
+      section
+        h2 More tools to come
+          br
+          | stay tuned!
+        img(src='images/doctor.svg', style='width:80%;')
+
+        h2
+          a(href="https://github.com/nearform/clinic")
+            | github.com/nearform/clinic
+
+      section
+        h2 clinic flame
+
+        pre
+          code.language-none.
             $ clinic flame -- node server.js
-
-            # More tools to come!
-
-      section
-        h2 DOCTOR DEMO
-
-      section
-        img(src='images/event-loop-delay.png', style='width: 100%;')
 
       section
         img(src='images/0x.png', style='height:80%;')
 
       section
-        video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
+        a(href="flamegraph.html", target="blank")
+          img(src='images/flamegraph.png', style='width:80%;')
+
+      section
+        pre
+          code.language-javascript.
+            require('restify')
+              .createServer()
+              .get('/', function (req, res, next) {
+                sleep(30)
+                res.send({})
+                next()
+              }).listen(3000)
+
+            function sleep (ms) {
+              const future = Date.now() + ms
+              while (Date.now() < future);
+            }
+
+      // section
+      //  video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)
+
+      section(data-bespoke-backdrop="hole" style="color: white").transgray
+        h2() The Node.js Performance Workshop is tomorrow at 9:00am
+
+        h3 ..and get lost in the rabbit hole of performance.
+          br
+          | You'll learn how to
+
+        ul.bullet
+          li use doctor to diagnose a performance problem
+          li use flamegraphs to know where is a problem
+          li dig deep on V8 flags to understand what is happening
+          li ..on a "slow" REST API.
 
       section
         h3 Most code does not need to go

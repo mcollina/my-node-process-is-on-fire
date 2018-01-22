@@ -15,8 +15,3 @@ server.get('/', function (req, res, next) {
 })
 
 server.listen(3000)
-
-process.on('SIGINT', function () {
-  console.error('Caught SIGINT, shutting down.')
-  server.close()
-})
