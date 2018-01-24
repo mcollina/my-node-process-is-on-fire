@@ -65,7 +65,7 @@ html
           br
           | measurable Goal
 
-      section
+      section(data-bespoke-backdrop='goal').trans
         h3(style="width: 70%")
           em My&nbsp;
           | application
@@ -115,8 +115,11 @@ html
         h2 Diagnostics
 
       section
-        h2 Node Clinic
-        img(src='images/doctor.svg', style='width:80%;')
+        img(src='images/clinic.png', style='width:90%;')
+
+        h2
+          a(href="https://github.com/nearform/node-clinic")
+            | github.com/nearform/node-clinic
 
       section
         h2 Node Clinic
@@ -133,6 +136,11 @@ html
       section
         h2 clinic doctor
 
+        img(src='images/doctor.svg', style='width:80%;')
+
+      section
+        h2 clinic doctor
+
         pre
           code.language-none.
             $ clinic doctor -- node server.js
@@ -140,16 +148,6 @@ html
       section
         a(href="doctor-demo.html", target="blank")
           img(src='images/event-loop-delay.png', style='width: 100%;')
-
-      section
-        h2 More tools to come
-          br
-          | stay tuned!
-        img(src='images/doctor.svg', style='width:80%;')
-
-        h2
-          a(href="https://github.com/nearform/clinic")
-            | github.com/nearform/clinic
 
       section
         h2 clinic flame
