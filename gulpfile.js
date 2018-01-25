@@ -105,9 +105,9 @@ gulp.task('open', gulp.series('serve', 'watch', 'open'))
 
 gulp.task('default', gulp.series('build'))
 
-gulp.task('deploy', gulp.series('build'), function (done) {
+gulp.task('deploy', gulp.series(['build', function _deploy (done) {
   ghpages.publish(path.join(__dirname, 'dist'), done)
-})
+}]))
 
 gulp.task('pdf', gulp.series('build', 'server', function print () {
   return spawn(path.join(__dirname, 'node_modules', '.bin', 'decktape'), ['bespoke', 'http://localhost:8080', 'slides.pdf'], { stdio: 'inherit' })
