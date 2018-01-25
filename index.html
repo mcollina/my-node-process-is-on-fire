@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>My Node.js Process is on Fire</title>
+    <link rel="stylesheet" type="text/css" href="build/build.css">
+  </head>
+  <body>
+    <article>
+      <section class="transgray" data-bespoke-backdrop="fire" style="color: white;">
+        <h1>My Node.js Process is on Fire</h1><br>
+        <h4>by&nbsp;<a href="http://twitter.com/matteocollina">@matteocollina</a></h4>
+      </section>
+      <section>
+        <h1 class="blink_me" style="color: red;">ALARM</h1>
+      </section>
+      <section>
+        <h1 class="blink_me" style="color: red;">MAXIMUM NUMBER OF SERVERS REACHED</h1>
+      </section>
+      <section class="trans" data-bespoke-backdrop="water">
+        <h2 style="color: white; font-variant: small-caps;">Number of servers increased, latency and response times are within boundaries</h2>
+      </section>
+      <section>
+        <h1>post-mortem</h1>
+      </section>
+      <section class="trans" data-bespoke-backdrop="lab"><br><br><br><br>
+        <h2 style="color: white; margin-left: 0px; margin-right: auto;">what happened?</h2>
+      </section>
+      <section>
+        <h2>How to fix?</h2>
+        <ul class="bullet">
+          <li>gather diagnostics data and evidence</li>
+          <li>reproduce the problem in a non-prod live environment</li>
+          <li>reproduce the problem in a synthethic way</li>
+          <li>gather diagnostics data and evidence</li>
+          <li>try a fix for the problem</li>
+          <li>if not fixed, go back and try again</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Fixing performance issues</h2>
+        <ul class="bullet">
+          <li>establish a <em>measurable</em> goal</li>
+          <li>measure</li>
+          <li>find the bottleneck</li>
+          <li>optimize/fix</li>
+          <li>measure</li>
+          <li>&nbsp;&nbsp;&nbsp;go back if it does not meet the goal</li>
+        </ul>
+      </section>
+      <section class="trans" data-bespoke-backdrop="goal">
+        <h2 style="text-align: right; margin-left: 20%;">Establishing a<br>measurable Goal</h2>
+      </section>
+      <section class="trans" data-bespoke-backdrop="goal">
+        <h3 style="width: 70%;"><em>My&nbsp;</em>application
+          must have a response time < 200ms at P99
+          with 100 concurrent requests
+          per server
+        </h3>
+      </section>
+      <!-- section-->
+      <!--   h3(style="width: 70%")-->
+      <!--     em My&nbsp;-->
+      <!--     | application-->
+      <!--     | must handle 10000 request/s with-->
+      <!--     | with 100 concurrent requests-->
+      <!--     | per server-->
+      <section>
+        <h2>Latency and throughput<br>are connected</h2>
+        <ul class="bullet">
+          <li>Node.js is single threaded</li>
+          <li>Multiple I/O actions in parallel</li>
+          <li>In case of high I/O latency, we increase concurrency</li>
+          <li>Higher latency and concurrency increase memory usage</li>
+          <li>High memory usage increase GC activity</li>
+          <li>GC activity costs precious CPU cycles to run</li>
+        </ul>
+      </section>
+      <section class="transgray" data-bespoke-backdrop="start" style="color: white;">
+        <h2 style="text-align: left; margin-right: 30%;">Measure</h2>
+      </section>
+      <section><img src="images/autocannon.png" style="width:100%;margin-bottom:5%;margin-top:-5%;">
+        <h3>HTTP load tester</h3>
+        <h3>Trival cross platform installation</h3>
+        <h3><a href="https://github.com/mcollina/autocannon">https://github.com/mcollina/autocannon</a></h3>
+      </section>
+      <section><img src="images/autocannon-demo.gif" style="height: 80%;"></section>
+      <section>
+        <h2>How do we find the bottleneck?</h2>
+      </section>
+      <section class="trans" data-bespoke-backdrop="lens" style="color: white;">
+        <h2>Diagnostics</h2>
+      </section>
+      <section><img src="images/clinic.png" style="width:90%;">
+        <h2><a href="https://github.com/nearform/node-clinic">github.com/nearform/node-clinic</a></h2>
+      </section>
+      <section>
+        <h2>Node Clinic</h2>
+        <pre><code class="language-none">npm install clinic -g
+
+clinic doctor -- node demo.js
+clinic flame -- node demo.js
+
+# more tools
+</code></pre>
+      </section>
+      <section>
+        <h2>clinic doctor</h2><img src="images/doctor.svg" style="width:80%;">
+      </section>
+      <section>
+        <h2>clinic doctor</h2>
+        <pre><code class="language-none">$ clinic doctor -- node server.js
+</code></pre>
+      </section>
+      <section><a href="doctor-demo.html" target="blank"><img src="images/event-loop-delay.png" style="width: 100%;"></a></section>
+      <section>
+        <h2>clinic flame</h2>
+        <pre><code class="language-none">$ clinic flame -- node server.js
+</code></pre>
+      </section>
+      <section><img src="images/0x.png" style="height:80%;"></section>
+      <section><a href="flamegraph.html" target="blank"><img src="images/flamegraph.png" style="width:80%;"></a></section>
+      <section>
+        <pre><code class="language-javascript">require('restify')
+  .createServer()
+  .get('/', function (req, res, next) {
+    sleep(30)
+    res.send({})
+    next()
+  }).listen(3000)
+
+function sleep (ms) {
+  const future = Date.now() + ms
+  while (Date.now() < future);
+}
+</code></pre>
+      </section>
+      <!-- section-->
+      <!--  video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)-->
+      <section class="transgray" data-bespoke-backdrop="hole" style="color: white;">
+        <h2>The Node.js Performance Workshop is tomorrow at 9:00am</h2>
+        <h3>..and get lost in the rabbit hole of performance.<br>You'll learn how to</h3>
+        <ul class="bullet">
+          <li>diagnose a performance problem</li>
+          <li>use flamegraphs to know where is a problem</li>
+          <li>dig deep on V8 flags to understand what is happening</li>
+          <li>..on a "slow" REST API.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Most code does not need to go</h3><img src="./images/ludicrous.gif">
+      </section>
+      <section>
+        <h2>Acknowledgements</h2><br><br>
+        <div class="bullet"><img class="bullet" src="images/nearform.svg" style="width: 70%;"></div>
+      </section>
+      <section>
+        <h2>The Team</h2><img src="images/clinic-team.jpg" style="width: 100%;">
+      </section>
+      <!-- section-->
+      <!--   ul.bullet-->
+      <!--     li Andreas Madsen-->
+      <!--     li Joy Burke-->
+      <!--     li Conor O'Neil-->
+      <!--     li Mathias Buus-->
+      <!--     li Alan Slater-->
+      <!--     li Kamil Mech-->
+      <section>
+        <h2>This presentation</h2>
+        <ul class="bullet">
+          <li><a href="https://mcollina.github.io/my-node-process-is-on-fire">https://mcollina.github.io/my-node-process-is-on-fire</a></li>
+          <li><a href="https://github.com/mcollina/my-node-process-is-on-fire">
+              https://github.com/mcollina/my-node-process-is-on-fire
+              </a></li>
+        </ul>
+      </section>
+      <section><a href="http://github.com/mcollina"><img src="images/me.png" style="width: 100%;"></a></section>
+      <section>
+        <h1>Thanks!</h1><a href="http://nearform.com" style="width: 20%;"><img src="./images/nearform.svg"></a><br>
+        <p>If you need help with Node.js, contact us</p><br>
+        <h3><a href="mailto:matteo.collina@nearform.com">matteo.collina@nearform.com</a></h3>
+        <h3><a href="http://twitter.com/matteocollina">@matteocollina</a> on Twitter</h3>
+        <h3><a href="http://www.nearform.com">www.nearform.com</a></h3>
+      </section>
+    </article>
+    <script src="build/build.js"></script>
+    <script src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>
