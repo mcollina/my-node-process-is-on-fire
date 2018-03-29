@@ -38,6 +38,7 @@
           <li>if not fixed, go back and try again</li>
         </ul>
       </section>
+      <section><img src="images/path-to-clinic.png" style="height:100%;"></section>
       <section>
         <h2>Fixing performance issues</h2>
         <ul class="bullet">
@@ -46,7 +47,6 @@
           <li>find the bottleneck</li>
           <li>optimize/fix</li>
           <li>measure</li>
-          <li>&nbsp;&nbsp;&nbsp;go back if it does not meet the goal</li>
         </ul>
       </section>
       <section class="trans" data-bespoke-backdrop="goal">
@@ -77,6 +77,7 @@
           <li>GC activity costs precious CPU cycles to run</li>
         </ul>
       </section>
+      <section><img src="images/bdd.png" style="height:120%;"></section>
       <section class="transgray" data-bespoke-backdrop="start" style="color: white;">
         <h2 style="text-align: left; margin-right: 30%;">Measure</h2>
       </section>
@@ -138,20 +139,49 @@ function sleep (ms) {
 }
 </code></pre>
       </section>
-      <!-- section-->
-      <!--  video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)-->
-      <section class="transgray" data-bespoke-backdrop="hole" style="color: white;">
-        <h2>The Node.js Performance Workshop is tomorrow at 9:00am</h2>
-        <h3>..and get lost in the rabbit hole of performance.<br>You'll learn how to</h3>
+      <section>
+        <h2>0x version 4</h2>
         <ul class="bullet">
-          <li>diagnose a performance problem</li>
-          <li>use flamegraphs to know where is a problem</li>
-          <li>dig deep on V8 flags to understand what is happening</li>
-          <li>..on a "slow" REST API.</li>
+          <li>faster UI</li>
+          <li>supports the V8 tick processor</li>
+          <li>still support kernel tracing</li>
+          <li>works on Windows!</li>
+          <li>just released, check it out while it's hot!</li>
         </ul>
       </section>
+      <!-- section-->
+      <!--  video(src="images/demo.mp4" preload="auto" style="height: 100%" controls)-->
       <section>
         <h3>Most code does not need to go</h3><img src="./images/ludicrous.gif">
+      </section>
+      <section><img src="images/fastify.png" style="width: 90%;"><br>
+        <h3><a href="https://github.com/fastify/fastify">https://github.com/fastify/fastify</a></h3>
+      </section>
+      <section>
+        <pre><code class="language-javascript">'use strict'
+const fastify = require('fastify')()
+
+fastify.get('/', function (req, reply) {
+  reply.send({ hello: 'world' })
+})
+
+fastify.listen(3000)
+</code></pre>
+      </section>
+      <section><img src="images/core-vs-express-vs-fastify.png" style="height: 100%;"></section>
+      <section><img src="images/pino.png" style="width: 90%;"><br>
+        <h3><a href="https://github.com/pinojs/pino">https://github.com/pinojs/pino</a></h3>
+      </section>
+      <section>
+        <pre><code class="language-javascript">const pino = require('pino')()
+pino.info('hello world')
+pino.debug({
+  big: 'object'
+}, 'with message')
+</code></pre>
+      </section>
+      <section>
+        <h2>2017 with Node 8.2+</h2><img src="./images/histogram-turbofan.png" style="height: 95%;">
       </section>
       <section>
         <h2>Acknowledgements</h2><br><br>
@@ -160,14 +190,6 @@ function sleep (ms) {
       <section>
         <h2>The Team</h2><img src="images/clinic-team.jpg" style="width: 100%;">
       </section>
-      <!-- section-->
-      <!--   ul.bullet-->
-      <!--     li Andreas Madsen-->
-      <!--     li Joy Burke-->
-      <!--     li Conor O'Neil-->
-      <!--     li Mathias Buus-->
-      <!--     li Alan Slater-->
-      <!--     li Kamil Mech-->
       <section>
         <h2>This presentation</h2>
         <ul class="bullet">
