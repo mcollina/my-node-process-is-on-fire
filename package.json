@@ -46,6 +46,9 @@
     "node": ">= 8"
   },
   "devDependencies": {
+    "express": "^4.16.3",
+    "fastify": "^1.2.0",
+    "hapi": "^17.2.3",
     "pre-commit": "^1.2.2",
     "restify": "^6.3.4",
     "snazzy": "^7.0.0",
